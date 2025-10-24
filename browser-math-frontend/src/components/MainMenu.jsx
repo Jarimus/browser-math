@@ -13,10 +13,12 @@ const MainMenu = ({ user, setUser }) => {
     localStorage.removeItem(LOCALSTORAGE_USER)
   }
 
+  // Show login screen, if no user
   if (!user) {
     return <Login setUser={setUser} />
   }
 
+  // If logged in, show main menu
   return (
     <div className="text-center">
 
@@ -25,13 +27,13 @@ const MainMenu = ({ user, setUser }) => {
       </p>
 
       <p>
-        <button className="btn btn-primary col-6" role="button" onClick={() => {navigate(URL_MULTIPLICATION_GAME)}}>
+        <button className="btn btn-primary" role="button" onClick={() => {navigate(URL_MULTIPLICATION_GAME)}}>
             Kertolasku
         </button>
       </p>
 
       <p>
-        <button className="btn btn-secondary col-6" type="button" onClick={resetUser}>
+        <button className="btn btn-secondary" type="button" onClick={resetUser}>
             Kirjaudu ulos
         </button>
       </p>

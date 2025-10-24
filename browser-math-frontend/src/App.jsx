@@ -1,5 +1,4 @@
-import { use, useEffect, useState } from "react"
-import Login from "./components/Login"
+import { useEffect, useState } from "react"
 import MainMenu from "./components/Mainmenu"
 import { LOCALSTORAGE_USER, URL_MULTIPLICATION_GAME } from "./utils/constants"
 import { Routes, Route } from 'react-router-dom'
@@ -10,7 +9,7 @@ function App() {
 
   // Check browser storage for login information
   useEffect(() => {
-    const storedUser = localStorage.getItem(LOCALSTORAGE_USER) ? localStorage.getItem(LOCALSTORAGE_USER) : null
+    const storedUser = localStorage.getItem(LOCALSTORAGE_USER)
     setUser(storedUser)
   }, [])
 
@@ -23,24 +22,6 @@ function App() {
       </Routes>
     </div>
   )
-
-  // No user, show login screen
-  if (!user) {
-    return (
-      <div className="container text-center">
-        <Login setUser={setUser} />
-      </div>
-    )
-  }
-
-  // Logged in, show main menu
-  if (user) {
-    return (
-      <div className="container text-center">
-        <MainMenu user={user} setUser={setUser} />
-      </div>
-    )
-  }
 
 }
 
