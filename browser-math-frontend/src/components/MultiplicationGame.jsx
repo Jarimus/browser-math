@@ -3,25 +3,27 @@ import { randomInt } from "../utils/helpers"
 import { useNavigate } from "react-router-dom"
 import '../utils/firework.css'
 import shootFirework from "../utils/firework"
+import Numpad from "./Numpad"
 
 const MultiplicationGame = () => {
 
   const [score, setScore] = useState(0)
+  const [result, setResult] = useState(null)
   const [n1, setN1] = useState(randomInt(2,9))
   const [n2, setN2] = useState(randomInt(2,9))
   const navigate = useNavigate()
 
-  const checkCalculation = (e) => {
-    e.preventDefault()
-    const calculation = e.target.calculation.value
-
-    if (n1 * n2 == calculation) {
+  const checkCalculation = () => {
+    if (!result) return
+    if (n1 * n2 == result) {
       setScore(score + 1)
       shootFirework("firework")
+      setN1(randomInt(2,9))
+      setN2(randomInt(2,9))
+    } else {
+      setScore(0)
     }
-    setN1(randomInt(2,9))
-    setN2(randomInt(2,9))
-    e.target.calculation.value = ""
+    setResult(null)
   }
 
   return (
@@ -35,15 +37,18 @@ const MultiplicationGame = () => {
         Laske: {`${n1} * ${n2}`}
       </p>
 
-        <form onSubmit={checkCalculation}>
-          <input name="calculation" type="number" />
-        </form>
+      <p>
+        Vastaus: {result}
+      </p>
+      
+      <Numpad result={result} setResult={setResult} checkCalculation={checkCalculation} />
 
       <p>
-        <button className="btn btn-primary" role="button" onClick={() => {navigate("/")}}>
+        <button className="btn btn-primary my-3" role="button" onClick={() => {navigate("/")}}>
             Takaisin
         </button>
       </p>
+
 
       <div id="firework"></div>
 

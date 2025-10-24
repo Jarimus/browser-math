@@ -42,6 +42,7 @@ body {
   background-size: 0.5vmin 0.5vmin;
   background-repeat: no-repeat;
   animation: firework 1.5s forwards;
+  z-index: -1;
 }
 
 .firework::before {
