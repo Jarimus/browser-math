@@ -1,4 +1,3 @@
-import { Button } from "react-bootstrap"
 import { LOCALSTORAGE_USER, URL_MULTIPLICATION_GAME } from "../utils/constants";
 import Login from "./Login";
 import { useNavigate } from "react-router-dom";
