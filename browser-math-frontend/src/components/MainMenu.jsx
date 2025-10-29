@@ -1,4 +1,4 @@
-import { LOCALSTORAGE_USER, URL_MULTIPLICATION_GAME } from "../utils/constants";
+import { LOCALSTORAGE_USER, URL_HIGHSCORES, URL_MULTIPLICATION_GAME } from "../utils/constants";
 import Login from "./Login";
 import { useNavigate } from "react-router-dom";
 
@@ -28,6 +28,12 @@ const MainMenu = ({ user, setUser }) => {
       <p>
         <button className="btn btn-primary" role="button" onClick={() => {navigate(URL_MULTIPLICATION_GAME)}}>
             Kertolasku
+        </button>
+      </p>
+
+      <p>
+        <button className="btn btn-primary" role="button" onClick={() => {navigate(URL_HIGHSCORES)}}>
+            Ennätykset
         </button>
       </p>
 
