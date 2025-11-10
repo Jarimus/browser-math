@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
 import MainMenu from "./components/MainMenu"
-import { LOCALSTORAGE_USER, URL_HIGHSCORES, URL_MULTIPLICATION_GAME } from "./utils/constants"
+import { LOCALSTORAGE_USER, URL_EXPRESSION_GAME, URL_HIGHSCORES, URL_MULTIPLICATION_GAME } from "./utils/constants"
 import { Routes, Route } from 'react-router-dom'
 import MultiplicationGame from "./components/MultiplicationGame"
 import Highscores from "./components/Highscores"
 import Notification from "./components/Notification"
+import ExpressionGame from "./components/ExpressionGame"
 
 function App() {
   
@@ -25,7 +26,7 @@ function App() {
   const [user, setUser] = useState(null)
   const [highscores, setHighscores] = useState(initialHighscores)
   const [notification, setNotification] = useState({
-    text: null, color: "green"
+    text: "", color: "green", visible: false
   })
 
   // Check browser storage for login information
@@ -38,11 +39,25 @@ function App() {
     <div className="container">
       <h1 className="text-center">Matikkapelit</h1>
       <Routes>
-        <Route path='/' element={<MainMenu user={user} setUser={setUser} />} />
-        <Route path={URL_MULTIPLICATION_GAME} element={<MultiplicationGame highscores={highscores} setHighscores={setHighscores} setNotification={setNotification} />} />
-        <Route path={URL_HIGHSCORES} element={<Highscores highscores={highscores} />} />
+        <Route
+          path='/'
+          element={<MainMenu user={user} setUser={setUser} />} />
+        <Route 
+          path={URL_MULTIPLICATION_GAME}
+          element={<MultiplicationGame
+            highscores={highscores}
+            setHighscores={setHighscores}
+            setNotification={setNotification} />} />
+        <Route
+          path={URL_HIGHSCORES}
+          element={<Highscores highscores={highscores} />} />
+        <Route
+          path={URL_EXPRESSION_GAME}
+          element={<ExpressionGame setNotification={setNotification} />} />
       </Routes>
-      <Notification notification={notification} />
+
+      <Notification notification={notification} setNotification={setNotification} />
+
     </div>
   )
 

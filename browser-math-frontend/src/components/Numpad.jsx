@@ -1,43 +1,50 @@
 const Numpad = ({ result, setResult, checkCalculation }) => {
 
   const handleClick = (e) => {
-    const numpadValue = e.target.value
-    // First check for clear and enter
-    if (numpadValue === "C") {
+    const n = e.target.value
+    // First check for special buttons
+    if (n === "C") {
       setResult("")
       return
     }
-    if (numpadValue === "⏎") {
+    if (n === "⏎") {
       checkCalculation()
       return
     }
     // Calculate new value
-    const n = Number(numpadValue)
     if (result.length === 0) {
       setResult(n)
     } else {
-      const newResult = result * 10 + n
+      const newResult = `${result}${n}`
       setResult(newResult)
     }
   }
 
+  const buttonStyle = {
+    width: "15vw",
+    height: "15vw"
+  }
+
   const numpadButton = (value) => {
-    return <button key={value} className="btn btn-lg btn-outline-primary m-2" value={value} onClick={handleClick}>{value}</button>
+    return <button key={value} style={buttonStyle} className="btn btn-lg btn-outline-primary m-1" value={value} onClick={handleClick}>{value}</button>
   }
 
   return (
     <div>
       <div>
-        {[7,8,9].map(n => numpadButton(n))}
+        {["7","8","9", "+"].map(n => numpadButton(n))}
       </div>
       <div>
-        {[4,5,6].map(n => numpadButton(n))}
+        {["4","5","6", "-"].map(n => numpadButton(n))}
       </div>
       <div>
-        {[1,2,3].map(n => numpadButton(n))}
+        {["1","2","3", "*"].map(n => numpadButton(n))}
       </div>
       <div>
-        {["C", 0, "⏎"].map(n => numpadButton(n))}
+        {["C", "0", ",", "/"].map(n => numpadButton(n))}
+      </div>
+      <div>
+        {["(", ")", "^", "⏎"].map(n => numpadButton(n))}
       </div>
     </div>
   )

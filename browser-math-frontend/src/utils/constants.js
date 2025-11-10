@@ -1,3 +1,4 @@
 export const LOCALSTORAGE_USER = "MatikkapelitAppUser"
 export const URL_MULTIPLICATION_GAME = "/multiplication"
 export const URL_HIGHSCORES = "/highscores"
+export const URL_EXPRESSION_GAME = "/expression"
