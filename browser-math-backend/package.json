@@ -1,0 +1,34 @@
+{
+  "name": "browser-math-backend",
+  "version": "1.0.0",
+  "description": "Backend for browser-math site",
+  "keywords": [
+    "math",
+    "easy",
+    "browser"
+  ],
+  "homepage": "https://github.com/Jarimus/browser-math#readme",
+  "bugs": {
+    "url": "https://github.com/Jarimus/browser-math/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jarimus/browser-math.git"
+  },
+  "license": "ISC",
+  "author": "Jari Ahonen",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "cross-env NODE_ENV=dev node --watch index.js"
+  },
+  "dependencies": {
+    "cross-env": "^10.1.0",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.19.3",
+    "morgan": "^1.10.1"
+  }
+}
