@@ -22,26 +22,17 @@ usersRouter.post('/', async (request, response) => {
 })
 
 // PUT
-usersRouter.put('/:id', async (request, response) => {
+usersRouter.put('/:username', async (request, response) => {
   const body = request.body
-  const id = request.params.id
-
-  const dbUser = await User.findById(id)
-  if (!dbUser) {
-    const user = new User({
-      username: body.username,
-      multiplication: body.multiplication ?? 0,
-      expressions: body.expressions ?? 0
-    })
-    const savedUser = await user.save()
-    response.status(201).json(savedUser)
+  const username = request.params.username
+  let data = await User.findOneAndUpdate({ username: username }, {...body})
+  if (!data) {
+    response.status(404).end()
     return
   }
-  const savedUser = await dbUser.updateOne({
-    multiplication: body.multiplication,
-    expressions: body.expressions
-  })
-  response.status(204).json(savedUser)
+  data["expressions"] = body.expressions ?? data["expressions"]
+  data["multiplication"] = body.multiplication ?? data["multiplication"]
+  response.status(200).json(data).end()
 })
 
 module.exports = usersRouter

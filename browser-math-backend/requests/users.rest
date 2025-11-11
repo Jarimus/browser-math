@@ -24,12 +24,20 @@ Content-Type: application/json
   "multiplication": 5
 }
 
-### PUT new user 1 with different stats
-PUT http://localhost:3003/api/users/{{get.response.body.$[0].id}} HTTP/1.1
+### PUT user 1 with different stats
+PUT http://localhost:3003/api/users/{{get.response.body.$[0].username}} HTTP/1.1
 Content-Type: application/json
 
 {
-  "username": "Jari",
-  "multiplication": 33,
-  "expressions": 22
+  "multiplication": 7,
+  "expressions": 7
+}
+
+### PUT with an invalid user
+PUT http://localhost:3003/api/users/noone HTTP/1.1
+Content-Type: application/json
+
+{
+  "multiplication": 2,
+  "expressions": 2
 }
