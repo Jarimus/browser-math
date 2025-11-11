@@ -32,19 +32,23 @@ const Highscores = ({ highscores }) => {
       break;
   }
 
+  const columnStyle = {
+    width: "7rem",
+  }
+
   return (
     <div className="text-center">
-      <table className="table">
+      <table className="table table-striped table-bordered table-hover">
         <thead>
           <tr>
-            <th>Nimi</th>
-            { gametype == "multiplication" && <th>Kertolaskut</th>}
-            { gametype == "expressions" && <th>Keksi lauseke</th>}
+            <th style={columnStyle} >Nimi</th>
+            { gametype == "multiplication" && <th style={columnStyle} >Kertolasku</th>}
+            { gametype == "expressions" && <th style={columnStyle} >Keksi lauseke</th>}
           </tr>
         </thead>
         <tbody>
           {highscores.map( a => {return (
-            <tr key={a.name + a.multiplication}>
+            <tr key={a.name + a.multiplication} >
               <td>{a.name}</td>
               { gametype == "multiplication" && <td>{a.multiplication ?? 0}</td>}
               { gametype == "expressions" && <td>{a.expressions ?? 0}</td>}
@@ -55,8 +59,8 @@ const Highscores = ({ highscores }) => {
       </table>
 
       <p>
-        <button className="btn btn-primary mx-1" role="button" onClick={() => {setGametype("multiplication")}}>Kertolaskupeli</button>
-        <button className="btn btn-primary mx-1" role="button" onClick={() => {setGametype("expressions")}}>Keksi lauseke -peli</button>
+        <button className="btn btn-primary mx-1" role="button" onClick={() => {setGametype("multiplication")}}>Kertolasku</button>
+        <button className="btn btn-primary mx-1" role="button" onClick={() => {setGametype("expressions")}}>Keksi lauseke</button>
       </p>
 
       <p>

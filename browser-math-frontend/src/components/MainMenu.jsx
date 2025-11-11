@@ -27,13 +27,13 @@ const MainMenu = ({ user, setUser }) => {
 
       <p>
         <button className="btn btn-lg btn-primary" role="button" onClick={() => {navigate(URL_MULTIPLICATION_GAME)}}>
-            Kertolaskupeli
+            Kertolasku
         </button>
       </p>
 
       <p>
         <button className="btn btn-lg btn-primary" role="button" onClick={() => {navigate(URL_EXPRESSION_GAME)}}>
-            Keksi lauseke -peli
+            Keksi lauseke
         </button>
       </p>
 
