@@ -2,10 +2,11 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 const Highscores = ({ highscores }) => {
+
   const navigate = useNavigate()
   const [gametype, setGametype] = useState("multiplication")
 
-  if (!highscores) {
+  if (highscores.length == 0) {
     return (
       <div className="text-center">
         <p>
@@ -47,13 +48,13 @@ const Highscores = ({ highscores }) => {
           </tr>
         </thead>
         <tbody>
-          {highscores.map( a => {return (
-            <tr key={a.name + a.multiplication} >
-              <td>{a.name}</td>
-              { gametype == "multiplication" && <td>{a.multiplication ?? 0}</td>}
-              { gametype == "expressions" && <td>{a.expressions ?? 0}</td>}
+          {highscores.map( a => (
+            <tr key={a.id}>
+              <td>{a.username}</td>
+              { gametype === "multiplication" && <td>{a.multiplication ?? 0}</td>}
+              { gametype === "expressions" && <td>{a.expressions ?? 0}</td>}
             </tr>
-            )}
+            )
           )}
         </tbody>
       </table>

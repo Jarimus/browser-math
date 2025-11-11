@@ -6,34 +6,26 @@ import MultiplicationGame from "./components/MultiplicationGame"
 import Highscores from "./components/Highscores"
 import Notification from "./components/Notification"
 import ExpressionGame from "./components/ExpressionGame"
+import { getAllUsers } from "./services/users"
+import { notificationPopUp } from "./utils/helpers"
 
 function App() {
   
-  const initialHighscores = [
-    {
-      name: "Matti",
-      multiplication: 5,
-      expressions: 7
-    },
-    {
-      name: "Esa",
-      multiplication: 13,
-      expressions: 1
-    },{
-      name: "Pertti",
-      multiplication: 1,
-      expressions: 13
-    },
-  ]
-  
   const [user, setUser] = useState(null)
-  const [highscores, setHighscores] = useState(initialHighscores)
+  const [highscores, setHighscores] = useState([])
   const [notification, setNotification] = useState({
     text: "", color: "green", visible: false
   })
 
-  // Check browser storage for login information
   useEffect(() => {
+    getAllUsers()
+      .then( (data) => {
+        setHighscores(data)
+      })
+      .catch( (error) => {
+        notificationPopUp(setNotification, `tietojen haku epäonnistui: ${error.message}`, "red", 5)
+      })
+
     const storedUser = localStorage.getItem(LOCALSTORAGE_USER)
     setUser(storedUser)
   }, [])
