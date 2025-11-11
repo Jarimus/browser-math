@@ -1,13 +1,15 @@
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 const Highscores = ({ highscores }) => {
   const navigate = useNavigate()
+  const [gametype, setGametype] = useState("multiplication")
 
   if (!highscores) {
     return (
       <div className="text-center">
         <p>
-          No highscores yet
+          Kukaan ei ole vielä tehnyt ennätyksiä!
         </p>
         <p>
           <button className="btn btn-primary my-3" role="button" onClick={() => {navigate("/")}}>
@@ -18,7 +20,17 @@ const Highscores = ({ highscores }) => {
     )
   }
 
-  highscores.sort( (a, b) => b.multiplication - a.multiplication)
+  switch (gametype) {
+    case "multiplication":
+      highscores.sort( (a, b) => b.multiplication - a.multiplication)
+      break;
+    case "expressions":
+      highscores.sort( (a, b) => b.expressions - a.expressions)
+      break;
+    default:
+      highscores.sort( (a, b) => b.multiplication - a.multiplication)
+      break;
+  }
 
   return (
     <div className="text-center">
@@ -26,16 +38,16 @@ const Highscores = ({ highscores }) => {
         <thead>
           <tr>
             <th>Nimi</th>
-            <th>Kertolaskut</th>
-            <th>Keksi lauseke</th>
+            { gametype == "multiplication" && <th>Kertolaskut</th>}
+            { gametype == "expressions" && <th>Keksi lauseke</th>}
           </tr>
         </thead>
         <tbody>
           {highscores.map( a => {return (
             <tr key={a.name + a.multiplication}>
               <td>{a.name}</td>
-              <td>{a.multiplication}</td>
-              <td>{a.expressions ?? 0}</td>
+              { gametype == "multiplication" && <td>{a.multiplication ?? 0}</td>}
+              { gametype == "expressions" && <td>{a.expressions ?? 0}</td>}
             </tr>
             )}
           )}
@@ -43,7 +55,12 @@ const Highscores = ({ highscores }) => {
       </table>
 
       <p>
-          <button className="btn btn-primary my-3" role="button" onClick={() => {navigate("/")}}>
+        <button className="btn btn-primary mx-1" role="button" onClick={() => {setGametype("multiplication")}}>Kertolaskupeli</button>
+        <button className="btn btn-primary mx-1" role="button" onClick={() => {setGametype("expressions")}}>Keksi lauseke -peli</button>
+      </p>
+
+      <p>
+          <button className="btn btn-primary my-1" role="button" onClick={() => {navigate("/")}}>
               Takaisin
           </button>
       </p>
