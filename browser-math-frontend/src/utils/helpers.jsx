@@ -1,3 +1,4 @@
+import { LOCALSTORAGE_USER } from "./constants"
 
 export const randomInt = (low, high) => {
   return Math.floor(Math.random()*(high-low+1) + low)
@@ -47,7 +48,6 @@ export function generateRandomExpression(numbers) {
   })
 
   const finalExpression = joinElementRandomOp(bracketedGroups)
-  console.log(finalExpression)
   let finalResult = 0
   try {
     finalResult = safeEval(finalExpression)
@@ -65,14 +65,13 @@ export function generateRandomExpression(numbers) {
 
 // Safe evaluation using Function constructor (safer than eval)
 export function safeEval(expr) {
-  // Basic sanitization
   const sanitized = expr.replace(/[^0-9+\-*/().\s]/g, '');
   return new Function(`return (${sanitized})`)();
 }
 
 export function joinElementRandomOp(arr) {
   // Operators
-  const operators = ['+', '-', '*'];
+  const operators = ['+', '-', '*', "/"];
   let resultString = ""
   for (let i=0; i<arr.length; i++) {
     // Choose random operator
@@ -84,4 +83,62 @@ export function joinElementRandomOp(arr) {
     }
   }
   return resultString
+}
+
+export function validateNumbersUsed(expression, numbers) {
+  // Validator for the expression game. Every number given should be used once, and no other number should be used.
+  for (const n of numbers) {
+
+    expression = expression.replace(n, "")
+  }
+  for (const n of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) {
+    if (expression.includes(n)) {
+      return false
+    }
+  }
+  return true
+}
+
+export function highscoreCheck(score, gametype, highscores, setHighscores, setNotification) {
+  if (score > 0) {
+    const username = localStorage.getItem(LOCALSTORAGE_USER)
+    const userScores = highscores.find( u => u.name == username) ?? { name: username }
+    let previousScore = -1
+    switch (gametype) {
+      case "multiplication":
+        previousScore = userScores.multiplication ?? -1
+        break;
+      case "expressions":
+        previousScore = userScores.expressions ?? -1
+        break;
+      default:
+        console.log("Error: unknown game type as input")
+        notificationPopUp(setNotification, "Error: unknown game type as input", "red", 5)
+        return
+    }
+    // Store a new high score
+    if (score > previousScore) {
+      notificationPopUp(setNotification, `Uusi oma ennätys!\n${score} pistettä.`, "green", 5)
+      switch (gametype) {
+        case "multiplication":
+          userScores.multiplication = score
+          break;
+        case "expressions":
+          userScores.expressions = score
+          break;
+        default:
+          break;
+      }
+      if ( highscores.find( u => u.name == username) == undefined) {
+        console.log("New user for highscores!")
+        setHighscores(highscores.concat(userScores))
+      } else {
+        console.log("User highscores updated!")
+        setHighscores(highscores.map( u => u.name == username ? userScores : u))
+      }
+      return
+    }
+    // If the score is not a new high score, show a notification.
+    notificationPopUp(setNotification, `Tuloksesi oli ${score} pistettä. Ennätyksesi on ${previousScore} pistettä.`, "green", 5)
+  }
 }

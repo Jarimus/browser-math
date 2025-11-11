@@ -2,9 +2,9 @@ import { useEffect, useState } from "react"
 import MediaQuery from "react-responsive"
 import { useNavigate } from "react-router-dom"
 import Numpad from "./Numpad"
-import { flashTextColor, generateRandomExpression, notificationPopUp, randomInt, safeEval } from "../utils/helpers"
+import { flashTextColor, generateRandomExpression, highscoreCheck, notificationPopUp, randomInt, safeEval, validateNumbersUsed } from "../utils/helpers"
 
-const ExpressionGame = ({ setNotification }) => {
+const ExpressionGame = ({ highscores, setHighscores, setNotification }) => {
 
   const navigate = useNavigate()
   const [score, setScore] = useState(0)
@@ -28,34 +28,40 @@ const ExpressionGame = ({ setNotification }) => {
 
   const newProblem = () => {
     let newNumbers = []
-    const count = randomInt(2, Math.floor(score / 10) + 2)
+    const count = randomInt(3, Math.min(Math.floor(score / 10) + 3, 5))
     for (let i=0;i<count;i++) {
       newNumbers.push(randomInt(2, 9))
     }
     setNumbers(newNumbers)
 
-    let generated = { expression: "", result: -1}
-    while (generated.result < 0 || generated.result > score*10 + 30) {
-      generated = generateRandomExpression(newNumbers)
+    let problem = { expression: "", result: -1}
+    while (problem.result < 0 || problem.result > score*2 + 20 || !Number.isInteger(problem.result)) {
+      problem = generateRandomExpression(newNumbers)
     }
-    setTarget(generated.result)
+    setTarget(problem.result)
   }
 
   const checkCalculation = () => {
+    if (!validateNumbersUsed(result, numbers)) {
+      notificationPopUp(setNotification, "Käytä vain annettuja numeroita.", "red", 5)
+      return
+    }
     let userResult = 0
     try {
       userResult = safeEval(result)
     } catch {
-      notificationPopUp(setNotification, "Väärin muotoiltu lauseke", "red", 5)
+      notificationPopUp(setNotification, "Väärin muotoiltu lauseke.", "red", 5)
+      return
     }
-    setResult("")
     if (userResult == target) {
       setScore(score + 1)
       flashTextColor("green", "grey", setColor, 200)
       newProblem()
+      setResult("")
     } else {
-      setScore(0)
       flashTextColor("red", "grey", setColor, 200)
+      highscoreCheck(score, "expressions", highscores, setHighscores, setNotification)
+      setScore(0)
     }
   }
 

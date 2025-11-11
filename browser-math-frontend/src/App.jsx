@@ -13,13 +13,16 @@ function App() {
     {
       name: "Matti",
       multiplication: 5,
+      expressions: 7
     },
     {
       name: "Esa",
       multiplication: 13,
+      expressions: 1
     },{
       name: "Pertti",
       multiplication: 1,
+      expressions: 13
     },
   ]
   
@@ -49,11 +52,14 @@ function App() {
             setHighscores={setHighscores}
             setNotification={setNotification} />} />
         <Route
+          path={URL_EXPRESSION_GAME}
+          element={<ExpressionGame
+            highscores={highscores}
+            setHighscores={setHighscores}
+            setNotification={setNotification} />} />
+        <Route
           path={URL_HIGHSCORES}
           element={<Highscores highscores={highscores} />} />
-        <Route
-          path={URL_EXPRESSION_GAME}
-          element={<ExpressionGame setNotification={setNotification} />} />
       </Routes>
 
       <Notification notification={notification} setNotification={setNotification} />

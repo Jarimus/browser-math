@@ -27,6 +27,7 @@ const Highscores = ({ highscores }) => {
           <tr>
             <th>Nimi</th>
             <th>Kertolaskut</th>
+            <th>Keksi lauseke</th>
           </tr>
         </thead>
         <tbody>
@@ -34,6 +35,7 @@ const Highscores = ({ highscores }) => {
             <tr key={a.name + a.multiplication}>
               <td>{a.name}</td>
               <td>{a.multiplication}</td>
+              <td>{a.expressions ?? 0}</td>
             </tr>
             )}
           )}

@@ -1,9 +1,8 @@
 import { useState } from "react"
 import { MediaQuery } from "react-responsive"
-import { randomInt, notificationPopUp, flashTextColor } from "../utils/helpers.jsx"
+import { randomInt, notificationPopUp, flashTextColor, highscoreCheck } from "../utils/helpers.jsx"
 import { useNavigate } from "react-router-dom"
 import Numpad from "./Numpad"
-import { LOCALSTORAGE_USER } from "../utils/constants"
 
 const MultiplicationGame = ({ setHighscores, highscores, setNotification }) => {
 
@@ -28,22 +27,7 @@ const MultiplicationGame = ({ setHighscores, highscores, setNotification }) => {
       flashTextColor("green", "grey", setColor)
     } else { // Answer is wrong
       flashTextColor("red", "grey", setColor)
-      if (score > 0) {
-        const username = localStorage.getItem(LOCALSTORAGE_USER)
-        const previousScore = highscores.find( item => item.name == username)
-        if (!previousScore) { // If there is no previous score, store the score as high score
-          notificationPopUp(setNotification, `Uusi oma ennätys!\n${score} pistettä.`, "green", 5)
-          setHighscores(highscores.concat({
-            name: localStorage.getItem(LOCALSTORAGE_USER),
-            multiplication: score
-          }))
-        } else if (previousScore.multiplication < score) { // If the score is higher than previous score, new high score
-          notificationPopUp(setNotification, `Uusi oma ennätys!\n${score} pistettä.`, "green", 5)
-          setHighscores(highscores.map( item => item.name === username ? {...item, multiplication: score} : item))
-        } else { // If the score is lower, show a popup
-          notificationPopUp(setNotification, `Tuloksesi oli ${score} pistettä. Ennätyksesi on ${previousScore.multiplication}.`, "green", 5)
-        }
-      }
+      highscoreCheck(score, "multiplication", highscores, setHighscores, setNotification)
       setScore(0)
     }
     setResult("")
