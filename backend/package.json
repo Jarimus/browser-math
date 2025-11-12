@@ -21,7 +21,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "cross-env NODE_ENV=dev node --watch index.js"
+    "dev": "cross-env NODE_ENV=dev node --watch index.js",
+    "start": "node index.js",
+    "build:ui": "rm -rf dist && cd ../frontend && npm run build && cp -r dist ../backend"
   },
   "dependencies": {
     "cross-env": "^10.1.0",
