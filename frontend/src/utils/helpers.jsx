@@ -113,7 +113,7 @@ export async function highscoreCheck(score, gametype, highscores, setHighscores,
         previousScore = userData.expressions ?? -1
         break;
       default:
-        console.log("Error: unknown game type as input")
+        console.error("Error: unknown game type as input")
         notificationPopUp(setNotification, "Error: unknown game type as input", "red", 5)
         return
     }
@@ -132,7 +132,6 @@ export async function highscoreCheck(score, gametype, highscores, setHighscores,
       }
       if ( highscores.find( u => u.username == username) == undefined) {
         const dbUserData = await createUser(userData)
-        console.log(dbUserData)
         setHighscores(highscores.concat(dbUserData))
       } else {
         setHighscores(highscores.map( u => u.username == username ? userData : u))
