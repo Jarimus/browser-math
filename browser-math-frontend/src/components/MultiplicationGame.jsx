@@ -18,7 +18,7 @@ const MultiplicationGame = ({ setHighscores, highscores, setNotification }) => {
     transition: "color 0.2s ease-in-out"
   }
 
-  const checkCalculation = (e) => {
+  const checkCalculation = async (e) => {
     if (result.length === 0) return
     if (n1 * n2 == result) { // Answer is correct
       setScore(score + 1)
@@ -27,7 +27,7 @@ const MultiplicationGame = ({ setHighscores, highscores, setNotification }) => {
       flashTextColor("green", "grey", setColor)
     } else { // Answer is wrong
       flashTextColor("red", "grey", setColor)
-      highscoreCheck(score, "multiplication", highscores, setHighscores, setNotification)
+      await highscoreCheck(score, "multiplication", highscores, setHighscores, setNotification)
       setScore(0)
     }
     setResult("")

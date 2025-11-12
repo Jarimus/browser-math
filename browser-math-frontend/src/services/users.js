@@ -12,7 +12,7 @@ export const createUser = async (newUser) => {
   return response.data
 }
 
-export const updateUser = async (username, userData) => {
-  const response = await axios.put(`${baseUrl}/${username}`, userData)
+export const updateUser = async (userData) => {
+  const response = await axios.put(`${baseUrl}/${userData.id}`, userData)
   return response.data
 }

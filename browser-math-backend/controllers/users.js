@@ -22,10 +22,10 @@ usersRouter.post('/', async (request, response) => {
 })
 
 // PUT
-usersRouter.put('/:username', async (request, response) => {
+usersRouter.put('/:id', async (request, response) => {
   const body = request.body
-  const username = request.params.username
-  let data = await User.findOneAndUpdate({ username: username }, {...body})
+  const id = request.params.id
+  let data = await User.findByIdAndUpdate(id, { ...body })
   if (!data) {
     response.status(404).end()
     return

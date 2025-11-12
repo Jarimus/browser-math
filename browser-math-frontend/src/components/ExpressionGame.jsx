@@ -41,7 +41,7 @@ const ExpressionGame = ({ highscores, setHighscores, setNotification }) => {
     setTarget(problem.result)
   }
 
-  const checkCalculation = () => {
+  const checkCalculation = async () => {
     if (!validateNumbersUsed(result, numbers)) {
       notificationPopUp(setNotification, "Käytä vain annettuja numeroita.", "red", 5)
       return
@@ -60,7 +60,7 @@ const ExpressionGame = ({ highscores, setHighscores, setNotification }) => {
       setResult("")
     } else {
       flashTextColor("red", "grey", setColor, 200)
-      highscoreCheck(score, "expressions", highscores, setHighscores, setNotification)
+      await highscoreCheck(score, "expressions", highscores, setHighscores, setNotification)
       setScore(0)
     }
   }

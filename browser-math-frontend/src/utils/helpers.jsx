@@ -1,3 +1,4 @@
+import { createUser, updateUser } from "../services/users"
 import { LOCALSTORAGE_USER } from "./constants"
 
 export const randomInt = (low, high) => {
@@ -99,17 +100,17 @@ export function validateNumbersUsed(expression, numbers) {
   return true
 }
 
-export function highscoreCheck(score, gametype, highscores, setHighscores, setNotification) {
+export async function highscoreCheck(score, gametype, highscores, setHighscores, setNotification) {
   if (score > 0) {
     const username = localStorage.getItem(LOCALSTORAGE_USER)
-    const userScores = highscores.find( u => u.name == username) ?? { name: username }
+    const userData = highscores.find( u => u.username == username) ?? { username: username }
     let previousScore = -1
     switch (gametype) {
       case "multiplication":
-        previousScore = userScores.multiplication ?? -1
+        previousScore = userData.multiplication ?? -1
         break;
       case "expressions":
-        previousScore = userScores.expressions ?? -1
+        previousScore = userData.expressions ?? -1
         break;
       default:
         console.log("Error: unknown game type as input")
@@ -121,20 +122,21 @@ export function highscoreCheck(score, gametype, highscores, setHighscores, setNo
       notificationPopUp(setNotification, `Uusi oma ennätys!\n${score} pistettä.`, "green", 5)
       switch (gametype) {
         case "multiplication":
-          userScores.multiplication = score
+          userData.multiplication = score
           break;
         case "expressions":
-          userScores.expressions = score
+          userData.expressions = score
           break;
         default:
           break;
       }
-      if ( highscores.find( u => u.name == username) == undefined) {
-        console.log("New user for highscores!")
-        setHighscores(highscores.concat(userScores))
+      if ( highscores.find( u => u.username == username) == undefined) {
+        const dbUserData = await createUser(userData)
+        console.log(dbUserData)
+        setHighscores(highscores.concat(dbUserData))
       } else {
-        console.log("User highscores updated!")
-        setHighscores(highscores.map( u => u.name == username ? userScores : u))
+        setHighscores(highscores.map( u => u.username == username ? userData : u))
+        await updateUser(userData)
       }
       return
     }
