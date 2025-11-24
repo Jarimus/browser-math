@@ -23,7 +23,7 @@ const ExpressionGame = ({ highscores, setHighscores, setNotification }) => {
   }, [])
 
   const info = () => {
-    notificationPopUp(setNotification, "Muodosta lauseke, jonka vastaus on oltava annettu vastaus. Käytä vain annettuja lukuja.", "black", 10)
+    notificationPopUp(setNotification, "Muodosta lauseke, jonka tulos on oltava annettu vastaus. Käytä kutakin annettua lukua kerran.", "black", 10)
   }
 
   const newProblem = () => {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import MainMenu from "./components/MainMenu"
-import { LOCALSTORAGE_USER, URL_EXPRESSION_GAME, URL_HIGHSCORES, URL_MULTIPLICATION_GAME } from "./utils/constants"
+import { LOCALSTORAGE_USER, URL_CONVERSIONS_GAME, URL_EXPRESSION_GAME, URL_HIGHSCORES, URL_MULTIPLICATION_GAME } from "./utils/constants"
 import { Routes, Route } from 'react-router-dom'
 import MultiplicationGame from "./components/MultiplicationGame"
 import Highscores from "./components/Highscores"
@@ -8,6 +8,7 @@ import Notification from "./components/Notification"
 import ExpressionGame from "./components/ExpressionGame"
 import { getAllUsers } from "./services/users"
 import { notificationPopUp } from "./utils/helpers"
+import ConversionsGame from "./components/ConversionsGame"
 
 function App() {
   
@@ -18,6 +19,7 @@ function App() {
   })
 
   useEffect(() => {
+    // Get highscores from database
     getAllUsers()
       .then( (data) => {
         setHighscores(data)
@@ -26,6 +28,7 @@ function App() {
         notificationPopUp(setNotification, `tietojen haku epäonnistui: ${error.message}`, "red", 5)
       })
 
+    // Read the user from browser's local storage
     const storedUser = localStorage.getItem(LOCALSTORAGE_USER)
     setUser(storedUser)
   }, [])
@@ -43,6 +46,9 @@ function App() {
             highscores={highscores}
             setHighscores={setHighscores}
             setNotification={setNotification} />} />
+        <Route
+          path={URL_CONVERSIONS_GAME}
+          element={<ConversionsGame />} />
         <Route
           path={URL_EXPRESSION_GAME}
           element={<ExpressionGame
