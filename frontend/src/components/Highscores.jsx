@@ -45,6 +45,7 @@ const Highscores = ({ highscores }) => {
             <th style={columnStyle} >Nimi</th>
             { gametype == "multiplication" && <th style={columnStyle} >Kertolasku</th>}
             { gametype == "expressions" && <th style={columnStyle} >Keksi lauseke</th>}
+            { gametype == "conversions" && <th style={columnStyle} >Yksikkömuunnokset</th>}
           </tr>
         </thead>
         <tbody>
@@ -53,6 +54,7 @@ const Highscores = ({ highscores }) => {
               <td>{a.username}</td>
               { gametype === "multiplication" && <td>{a.multiplication ?? 0}</td>}
               { gametype === "expressions" && <td>{a.expressions ?? 0}</td>}
+              { gametype === "conversions" && <td>{a.conversions ?? 0}</td>}
             </tr>
             )
           )}
@@ -60,8 +62,9 @@ const Highscores = ({ highscores }) => {
       </table>
 
       <p>
-        <button className="btn btn-primary mx-1" role="button" onClick={() => {setGametype("multiplication")}}>Kertolasku</button>
-        <button className="btn btn-primary mx-1" role="button" onClick={() => {setGametype("expressions")}}>Keksi lauseke</button>
+        <button className="btn btn-primary m-1" role="button" onClick={() => {setGametype("multiplication")}}>Kertolasku</button>
+        <button className="btn btn-primary m-1" role="button" onClick={() => {setGametype("expressions")}}>Keksi lauseke</button>
+        <button className="btn btn-primary m-1" role="button" onClick={() => {setGametype("conversions")}}>Yksikkömuunnokset</button>
       </p>
 
       <p>

@@ -112,6 +112,9 @@ export async function highscoreCheck(score, gametype, highscores, setHighscores,
       case "expressions":
         previousScore = userData.expressions ?? -1
         break;
+      case "conversions":
+        previousScore = userData.conversions ?? -1
+        break;
       default:
         console.error("Error: unknown game type as input")
         notificationPopUp(setNotification, "Error: unknown game type as input", "red", 5)
@@ -127,6 +130,8 @@ export async function highscoreCheck(score, gametype, highscores, setHighscores,
         case "expressions":
           userData.expressions = score
           break;
+        case "conversions":
+          userData.conversions = score
         default:
           break;
       }

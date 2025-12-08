@@ -42,7 +42,7 @@ const MultiplicationGame = ({ setHighscores, highscores, setNotification }) => {
         </h2>
 
         <h2>
-          Laske: {`${n1} * ${n2}`}
+          {`${n1} * ${n2}`} = ?
         </h2>
       </div>
 

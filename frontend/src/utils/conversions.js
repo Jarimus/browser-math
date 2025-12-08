@@ -11,11 +11,11 @@ export const lengths = {
         },
         {
             name: "cm",
-            magnitude: 0.01
+            magnitude: 10 ** (-2)
         },
         {
             name: "mm",
-            magnitude: 0.001
+            magnitude: 10 ** (-3)
         },
     ]
 }
@@ -33,7 +33,7 @@ export const weights = {
         },
         {
             name: "mg",
-            magnitude: 0.001
+            magnitude: 10 ** (-3)
         },
     ]
 }

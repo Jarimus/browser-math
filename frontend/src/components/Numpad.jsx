@@ -41,7 +41,7 @@ const Numpad = ({ result, setResult, checkCalculation }) => {
         {["1","2","3", "*"].map(n => numpadButton(n))}
       </div>
       <div>
-        {["C", "0", ",", "/"].map(n => numpadButton(n))}
+        {["C", "0", ".", "/"].map(n => numpadButton(n))}
       </div>
       <div>
         {["(", ")", "^", "⏎"].map(n => numpadButton(n))}

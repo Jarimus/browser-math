@@ -13,6 +13,10 @@ const userSchema = new mongoose.Schema({
   expressions: {
     type: Number,
     default: 0
+  },
+  conversions: {
+    type: Number,
+    default: 0
   }
 })
 

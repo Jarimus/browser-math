@@ -48,7 +48,10 @@ function App() {
             setNotification={setNotification} />} />
         <Route
           path={URL_CONVERSIONS_GAME}
-          element={<ConversionsGame />} />
+          element={<ConversionsGame
+            highscores={highscores}
+            setHighscores={setHighscores}
+            setNotification={setNotification} />} />
         <Route
           path={URL_EXPRESSION_GAME}
           element={<ExpressionGame
