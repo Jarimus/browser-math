@@ -1,8 +1,8 @@
 import { useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { lengths, times, weights } from "../utils/conversions"
+import { conversionsSet, timeSetName } from "../utils/conversions"
 import NumPad from "./Numpad"
-import { flashTextColor, highscoreCheck } from "../utils/helpers"
+import { flashTextColor, highscoreCheck, randomInt } from "../utils/helpers"
 import MediaQuery from "react-responsive"
 
 const ConversionsGame = ({ setHighscores, highscores, setNotification }) => {
@@ -33,14 +33,10 @@ const ConversionsGame = ({ setHighscores, highscores, setNotification }) => {
         .map(checkbox => checkbox.value);
 
         const newSet = []
-        if (selectedValues.includes("lengths")) {
-            newSet.push(lengths)
-        }
-        if (selectedValues.includes("weights")) {
-            newSet.push(weights)
-        }
-        if (selectedValues.includes("times")) {
-            newSet.push(times)
+        for (const set of conversionsSet) {
+            if (selectedValues.includes(set.name)) {
+                newSet.push(set)
+            }
         }
 
         setPracticeSet(newSet)
@@ -53,8 +49,11 @@ const ConversionsGame = ({ setHighscores, highscores, setNotification }) => {
         const unitSet = set[Math.floor(Math.random()*set.length)]
 
         // Choose two units from the set
-        const i = Math.floor(Math.random()*(unitSet.conversions.length-1))
-        const [ unit1, unit2 ] = [ unitSet.conversions[i], unitSet.conversions[i+1] ]
+        const i = randomInt(0, unitSet.conversions.length - 1)
+        const unit1 = unitSet.conversions[i]
+        const j = randomInt(0, unit1.pairsWith.length - 1)
+        const targetUnitName = unit1.pairsWith[j]
+        const unit2 = unitSet.conversions.find( v => v.name == targetUnitName )
         
         // Randomize source and target
         let sourceUnit
@@ -66,17 +65,28 @@ const ConversionsGame = ({ setHighscores, highscores, setNotification }) => {
             targetUnit = unit2
             sourceUnit = unit1
         }
-        
-        // Randomize initial value
-        let initialValue = Math.round((Math.random() * 1000)) / 100
-        // Handle times (s, min, h, day) differently
-        if (unitSet.name == "times") {
-            initialValue = Math.round(Math.random() * 3 + 2)
+
+        // Calculate initial value and target value. Smaller value: 0.1 - 999
+        let targetValue
+        let initialValue
+        if (sourceUnit.magnitude < targetUnit.magnitude) {
+            targetValue = (randomInt(1,990) / 10).toFixed(1)
+            initialValue = (targetValue * targetUnit.magnitude / sourceUnit.magnitude).toFixed(1)
+        } else {
+            initialValue = (randomInt(1,990) / 10).toFixed(1)
+            targetValue = (initialValue * sourceUnit.magnitude / targetUnit.magnitude).toFixed(1)
         }
-        // Take into account conversion from smaller unit to bigger unit
-        if (targetUnit.magnitude > sourceUnit.magnitude) initialValue *= targetUnit.magnitude / sourceUnit.magnitude
-        // Calulate target value
-        const targetValue = initialValue * sourceUnit.magnitude / targetUnit.magnitude
+
+        // Handle times (s, min, h, day) differently
+        if (unitSet.name == timeSetName) {
+            if (sourceUnit.magnitude > targetUnit.magnitude) {
+                initialValue = randomInt(2,4)
+                targetValue = initialValue * sourceUnit.magnitude / targetUnit.magnitude
+            } else {
+                targetValue = randomInt(2,4)
+                initialValue = targetValue * targetUnit.magnitude / sourceUnit.magnitude
+            }
+        }
 
         setProblem({
             targetName: targetUnit.name,
@@ -88,14 +98,16 @@ const ConversionsGame = ({ setHighscores, highscores, setNotification }) => {
     }
 
     const checkCalculation = async () => {
-        const fixedResult = result.replace(",", ".")
+        // Replace comma with a dot: then result will properly cast to a number
         if (result.length === 0) return
-        const diff = Math.abs( Number(fixedResult) - problem.targetValue)
-        if ( diff < 0.1 ) {
+        const fixedResult = result.replace(",", ".")
+        // target value is not accurate due to floats. Calculate difference, which should be small
+        const diffPercent = (Math.abs( Number(fixedResult) - problem.targetValue)) / problem.targetValue
+        if ( diffPercent < 10 ** (-10) ) { // Handle correct answer
             setScore(score + 1)
             flashTextColor("green", "grey", setColor)
             newProblem(practiceSet)
-        } else {
+        } else { // Handle wrong answer
             flashTextColor("red", "grey", setColor)
             await highscoreCheck(score, "conversions", highscores, setHighscores, setNotification)
             setScore(0)
@@ -107,18 +119,14 @@ const ConversionsGame = ({ setHighscores, highscores, setNotification }) => {
             <div className="text-center">
                 <h2>Valitse harjoiteltavat yksiköt</h2>
 
-                    <div>
-                        <input className="mx-2" type="checkbox" name="chooseSets" id="lengthSet" value="lengths" ref={(el) => (checkboxesRef.current['lengthSet'] = el)} />
-                        <label htmlFor="lengthSet">Pituudet (km, m, cm, mm)</label>
-                    </div>
-                    <div>
-                        <input className="mx-2" type="checkbox" name="chooseSets" id="weightSet" value="weights" ref={(el) => (checkboxesRef.current['weightSet'] = el)} />
-                        <label htmlFor="weightSet">Painot (kg, g, mg)</label>
-                    </div>
-                    <div>
-                        <input className="mx-2" type="checkbox" name="chooseSets" id="timeSet" value="times" ref={(el) => (checkboxesRef.current['timeSet'] = el)} />
-                        <label htmlFor="timeSet">Ajan yksiköt (s, min, h, pv)</label>
-                    </div>
+                    {
+                        conversionsSet.map( (set) => { return (
+                            <div key={set.name + "ID"}>
+                                <input className="mx-2" type="checkbox" name="chooseSets" id={set.name + "ID"} value={set.name} ref={(el) => (checkboxesRef.current[set.name] = el)} />
+                            <label htmlFor={set.name + "ID"}>{set.name} ({set.conversions.map( v => v.name).join(", ")})</label>
+                            </div>
+                        )})
+                    }
 
                     <button className="btn btn-primary m-1" role="button" onClick={addPracticeSets} >
                         Valitse

@@ -28,8 +28,9 @@ const Highscores = ({ highscores }) => {
     case "expressions":
       highscores.sort( (a, b) => b.expressions - a.expressions)
       break;
+    case "conversions":
+      highscores.sort( (a,b) => b.conversions - a.conversions )
     default:
-      highscores.sort( (a, b) => b.multiplication - a.multiplication)
       break;
   }
 

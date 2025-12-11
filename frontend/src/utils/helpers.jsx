@@ -139,6 +139,7 @@ export async function highscoreCheck(score, gametype, highscores, setHighscores,
         const dbUserData = await createUser(userData)
         setHighscores(highscores.concat(dbUserData))
       } else {
+        userData.updatedAt = Date.now()
         setHighscores(highscores.map( u => u.username == username ? userData : u))
         await updateUser(userData)
       }
