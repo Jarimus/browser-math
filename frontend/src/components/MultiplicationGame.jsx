@@ -62,7 +62,7 @@ const MultiplicationGame = ({ setHighscores, highscores, setNotification }) => {
       </MediaQuery>
 
       <p>
-        <button className="btn btn-lg btn-primary my-3" role="button" onClick={() => {navigate("/")}}>
+        <button className="btn btn-lg btn-primary my-3" role="button" onClick={() => {highscoreCheck(score, "multiplication", highscores, setHighscores, setNotification); navigate("/")}}>
             Takaisin
         </button>
       </p>

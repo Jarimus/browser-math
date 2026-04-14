@@ -162,7 +162,7 @@ const ConversionsGame = ({ setHighscores, highscores, setNotification }) => {
             </MediaQuery>
             
             <p>
-            <button className="btn btn-primary my-1" role="button" onClick={() => {navigate("/")}}>
+            <button className="btn btn-primary my-1" role="button" onClick={() => {highscoreCheck(score, "conversions", highscores, setHighscores, setNotification); navigate("/")}}>
                 Takaisin
             </button>
             </p>

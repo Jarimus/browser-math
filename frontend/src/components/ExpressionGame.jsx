@@ -100,7 +100,7 @@ const ExpressionGame = ({ highscores, setHighscores, setNotification }) => {
       </MediaQuery>
 
       <div>
-          <button className="btn btn-lg btn-primary m-2" role="button" onClick={() => {navigate("/")}}>
+          <button className="btn btn-lg btn-primary m-2" role="button" onClick={() => {highscoreCheck(score, "expressions", highscores, setHighscores, setNotification); navigate("/")}}>
               Takaisin
           </button>
           <button className="btn btn-lg btn-primary m-2" role="button" onClick={() => {info()}}>
