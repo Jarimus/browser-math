@@ -6,6 +6,7 @@ You can find the site running [here](https://matikkapelit.onrender.com).
 ## Current math games
 - Basic multiplication tables
 - Building expressions with basic operations from the given numbers and a result.
+- Unit conversions
 
 ## How to run
 
@@ -13,7 +14,7 @@ You can find the site running [here](https://matikkapelit.onrender.com).
 1. Create an account at [MongoDB](https://www.mongodb.com/).
 2. Follow the instructions on how to set up the database in MongoDB. In the end, you should have a connection string of this form:
    ```
-   mongodb+srv://{{USER}}:{{PASSWORD}}@{{CLUSTER}}.8puucew.mongodb.net/?appName={{CLUSTER}}
+   mongodb+srv://{{USER}}:{{PASSWORD}}@{{CLUSTER}}.abcde.mongodb.net/?appName={{CLUSTER}}
    ```
 3. Use the connection string in your ```.env``` file. You will need two variables: DEV_MONGODB_URI (database for testing) and MONGODB_URI (database for production).
 
