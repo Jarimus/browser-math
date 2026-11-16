@@ -109,6 +109,9 @@ export async function highscoreCheck(score, gametype, highscores, setHighscores,
       case "multiplication":
         previousScore = userData.multiplication ?? -1
         break;
+      case "division":
+        previousScore = userData.division ?? -1
+        break;
       case "expressions":
         previousScore = userData.expressions ?? -1
         break;
@@ -127,11 +130,15 @@ export async function highscoreCheck(score, gametype, highscores, setHighscores,
         case "multiplication":
           userData.multiplication = score
           break;
+        case "division":
+          userData.division = score
+          break;
         case "expressions":
           userData.expressions = score
           break;
         case "conversions":
           userData.conversions = score
+          break;
         default:
           break;
       }

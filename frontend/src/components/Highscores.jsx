@@ -25,11 +25,15 @@ const Highscores = ({ highscores }) => {
     case "multiplication":
       highscores.sort( (a, b) => b.multiplication - a.multiplication)
       break;
+    case "division":
+      highscores.sort( (a, b) => b.division - a.division)
+      break;
     case "expressions":
       highscores.sort( (a, b) => b.expressions - a.expressions)
       break;
     case "conversions":
       highscores.sort( (a,b) => b.conversions - a.conversions )
+      break;
     default:
       break;
   }
@@ -45,6 +49,7 @@ const Highscores = ({ highscores }) => {
           <tr>
             <th style={columnStyle} >Nimi</th>
             { gametype == "multiplication" && <th style={columnStyle} >Kertolasku</th>}
+            { gametype == "division" && <th style={columnStyle} >Jakolasku</th>}
             { gametype == "expressions" && <th style={columnStyle} >Keksi lauseke</th>}
             { gametype == "conversions" && <th style={columnStyle} >Yksikkömuunnokset</th>}
           </tr>
@@ -54,6 +59,7 @@ const Highscores = ({ highscores }) => {
             <tr key={a.id}>
               <td>{a.username}</td>
               { gametype === "multiplication" && <td>{a.multiplication ?? 0}</td>}
+              { gametype === "division" && <td>{a.division ?? 0}</td>}
               { gametype === "expressions" && <td>{a.expressions ?? 0}</td>}
               { gametype === "conversions" && <td>{a.conversions ?? 0}</td>}
             </tr>
@@ -64,6 +70,7 @@ const Highscores = ({ highscores }) => {
 
       <p>
         <button className="btn btn-primary m-1" role="button" onClick={() => {setGametype("multiplication")}}>Kertolasku</button>
+        <button className="btn btn-primary m-1" role="button" onClick={() => {setGametype("division")}}>Jakolasku</button>
         <button className="btn btn-primary m-1" role="button" onClick={() => {setGametype("expressions")}}>Keksi lauseke</button>
         <button className="btn btn-primary m-1" role="button" onClick={() => {setGametype("conversions")}}>Yksikkömuunnokset</button>
       </p>

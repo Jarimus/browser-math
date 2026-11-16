@@ -2,7 +2,7 @@ const usersRouter = require('express').Router()
 const User = require('../models/user')
 
 // GET: all
-usersRouter.get('/', async (request, response) => {
+usersRouter.get('/', async (_request, response) => {
   const users = await User.find({})
   response.json(users).end()
 })
@@ -14,7 +14,9 @@ usersRouter.post('/', async (request, response) => {
   const user = new User({
     username: body.username,
     multiplication: body.multiplication ?? 0,
-    expressions: body.expressions ?? 0
+    division: body.division ?? 0,
+    expressions: body.expressions ?? 0,
+    conversions: body.conversions ?? 0
   })
 
   const savedUser = await user.save()
@@ -32,6 +34,8 @@ usersRouter.put('/:id', async (request, response) => {
   }
   data["expressions"] = body.expressions ?? data["expressions"]
   data["multiplication"] = body.multiplication ?? data["multiplication"]
+  data["division"] = body.division ?? data["division"]
+  data["conversions"] = body.conversions ?? data["conversions"]
   response.status(200).json(data).end()
 })
 

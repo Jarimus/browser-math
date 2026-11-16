@@ -151,7 +151,7 @@ const ConversionsGame = ({ setHighscores, highscores, setNotification }) => {
             <NumPad result={result} setResult={setResult} checkCalculation={checkCalculation} />
             </MediaQuery>
 
-            <MediaQuery query="(min-device-width: 800px">
+            <MediaQuery query="(min-device-width: 800px)">
             <h2>
                 {problem.sourceValue} {problem.sourceName} = ? {problem.targetName}
             </h2>

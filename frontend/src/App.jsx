@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
 import MainMenu from "./components/MainMenu"
-import { LOCALSTORAGE_USER, URL_CONVERSIONS_GAME, URL_EXPRESSION_GAME, URL_HIGHSCORES, URL_MULTIPLICATION_GAME } from "./utils/constants"
+import { LOCALSTORAGE_USER, URL_CONVERSIONS_GAME, URL_DIVISION_GAME, URL_EXPRESSION_GAME, URL_HIGHSCORES, URL_MULTIPLICATION_GAME } from "./utils/constants"
 import { Routes, Route } from 'react-router-dom'
 import MultiplicationGame from "./components/MultiplicationGame"
+import DivisionGame from "./components/DivisionGame"
 import Highscores from "./components/Highscores"
 import Notification from "./components/Notification"
 import ExpressionGame from "./components/ExpressionGame"
@@ -43,6 +44,12 @@ function App() {
         <Route 
           path={URL_MULTIPLICATION_GAME}
           element={<MultiplicationGame
+            highscores={highscores}
+            setHighscores={setHighscores}
+            setNotification={setNotification} />} />
+        <Route
+          path={URL_DIVISION_GAME}
+          element={<DivisionGame
             highscores={highscores}
             setHighscores={setHighscores}
             setNotification={setNotification} />} />

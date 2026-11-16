@@ -1,8 +1,7 @@
-const logger = require('./logger')
 const morgan = require('morgan')
 
 // Error handling
-const errorHandler = (error, request, response, next) => {
+const errorHandler = (error, _request, response, next) => {
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' })
   } else if (error.name === 'ValidationError') {
@@ -24,7 +23,7 @@ morgan.token('data', (req) => JSON.stringify(req.body))
 const morganLogging = morgan(':method :url :status :res[content-length] - :response-time ms :data')
 
 // Unknown endpoint
-const unknownEndpoint = (request, response) => {
+const unknownEndpoint = (_request, response) => {
   response.status(404).send(`
 <!DOCTYPE html>
   <html style="height:75%; margin:0; background:black; color:white; display:flex; justify-content:center; align-items:center;">

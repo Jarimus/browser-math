@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { MediaQuery } from "react-responsive"
-import { randomInt, notificationPopUp, flashTextColor, highscoreCheck } from "../utils/helpers.jsx"
+import { randomInt, flashTextColor, highscoreCheck } from "../utils/helpers.jsx"
 import { useNavigate } from "react-router-dom"
 import Numpad from "./Numpad"
 
@@ -18,7 +18,7 @@ const MultiplicationGame = ({ setHighscores, highscores, setNotification }) => {
     transition: "color 0.2s ease-in-out"
   }
 
-  const checkCalculation = async (e) => {
+  const checkCalculation = async () => {
     if (result.length === 0) return
     if (n1 * n2 == result) { // Answer is correct
       setScore(score + 1)
@@ -54,7 +54,7 @@ const MultiplicationGame = ({ setHighscores, highscores, setNotification }) => {
         <Numpad result={result} setResult={setResult} checkCalculation={checkCalculation} />
       </MediaQuery>
 
-      <MediaQuery query="(min-device-width: 800px">
+      <MediaQuery query="(min-device-width: 800px)">
         <form onSubmit={(e) => {e.preventDefault(); checkCalculation()}}>
           <input value={result} onChange={({ target }) => setResult(target.value)} />
           <button style={{display: "None"}}>Nappula</button>

@@ -87,7 +87,7 @@ const ExpressionGame = ({ highscores, setHighscores, setNotification }) => {
         <Numpad result={result} setResult={setResult} checkCalculation={checkCalculation} />
       </MediaQuery>
 
-      <MediaQuery query="(min-device-width: 800px">
+      <MediaQuery query="(min-device-width: 800px)">
 
         <h2>
           Lausekkeen tulos: {target}

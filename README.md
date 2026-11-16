@@ -5,6 +5,7 @@ You can find the site running [here](https://matikkapelit.onrender.com).
 
 ## Current math games
 - Basic multiplication tables
+- Basic division tables
 - Building expressions with basic operations from the given numbers and a result.
 - Unit conversions
 
