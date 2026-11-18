@@ -1,4 +1,4 @@
-import { LOCALSTORAGE_USER, URL_CONVERSIONS_GAME, URL_DIVISION_GAME, URL_EXPRESSION_GAME, URL_HIGHSCORES, URL_MULTIPLICATION_GAME } from "../utils/constants";
+import { LOCALSTORAGE_USER, URL_CONVERSIONS_GAME, URL_DIVISION_GAME, URL_EXPRESSION_GAME, URL_GEOMETRY_GAME, URL_HIGHSCORES, URL_MULTIPLICATION_GAME } from "../utils/constants";
 import Login from "./Login";
 import { useNavigate } from "react-router-dom";
 
@@ -46,6 +46,12 @@ const MainMenu = ({ user, setUser }) => {
       <p>
         <button className="btn btn-lg btn-primary" role="button" onClick={() => {navigate(URL_EXPRESSION_GAME)}}>
             Keksi lauseke
+        </button>
+      </p>
+
+      <p>
+        <button className="btn btn-lg btn-primary" role="button" onClick={() => {navigate(URL_GEOMETRY_GAME)}}>
+            Piiri ja pinta-ala
         </button>
       </p>
 

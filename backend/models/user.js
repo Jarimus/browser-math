@@ -29,6 +29,10 @@ const userSchema = new mongoose.Schema({
   conversions: {
     type: Number,
     default: 0
+  },
+  geometry: {
+    type: Number,
+    default: 0
   }
 })
 

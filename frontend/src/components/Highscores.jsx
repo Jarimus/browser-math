@@ -34,6 +34,9 @@ const Highscores = ({ highscores }) => {
     case "conversions":
       highscores.sort( (a,b) => b.conversions - a.conversions )
       break;
+    case "geometry":
+      highscores.sort( (a,b) => (b.geometry ?? 0) - (a.geometry ?? 0) )
+      break;
     default:
       break;
   }
@@ -52,6 +55,7 @@ const Highscores = ({ highscores }) => {
             { gametype == "division" && <th style={columnStyle} >Jakolasku</th>}
             { gametype == "expressions" && <th style={columnStyle} >Keksi lauseke</th>}
             { gametype == "conversions" && <th style={columnStyle} >Yksikkömuunnokset</th>}
+            { gametype == "geometry" && <th style={columnStyle} >Piiri ja pinta-ala</th>}
           </tr>
         </thead>
         <tbody>
@@ -62,6 +66,7 @@ const Highscores = ({ highscores }) => {
               { gametype === "division" && <td>{a.division ?? 0}</td>}
               { gametype === "expressions" && <td>{a.expressions ?? 0}</td>}
               { gametype === "conversions" && <td>{a.conversions ?? 0}</td>}
+              { gametype === "geometry" && <td>{a.geometry ?? 0}</td>}
             </tr>
             )
           )}
@@ -73,6 +78,7 @@ const Highscores = ({ highscores }) => {
         <button className="btn btn-primary m-1" role="button" onClick={() => {setGametype("division")}}>Jakolasku</button>
         <button className="btn btn-primary m-1" role="button" onClick={() => {setGametype("expressions")}}>Keksi lauseke</button>
         <button className="btn btn-primary m-1" role="button" onClick={() => {setGametype("conversions")}}>Yksikkömuunnokset</button>
+        <button className="btn btn-primary m-1" role="button" onClick={() => {setGametype("geometry")}}>Piiri ja pinta-ala</button>
       </p>
 
       <p>

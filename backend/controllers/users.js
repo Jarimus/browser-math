@@ -16,7 +16,8 @@ usersRouter.post('/', async (request, response) => {
     multiplication: body.multiplication ?? 0,
     division: body.division ?? 0,
     expressions: body.expressions ?? 0,
-    conversions: body.conversions ?? 0
+    conversions: body.conversions ?? 0,
+    geometry: body.geometry ?? 0
   })
 
   const savedUser = await user.save()
@@ -36,6 +37,7 @@ usersRouter.put('/:id', async (request, response) => {
   data["multiplication"] = body.multiplication ?? data["multiplication"]
   data["division"] = body.division ?? data["division"]
   data["conversions"] = body.conversions ?? data["conversions"]
+  data["geometry"] = body.geometry ?? data["geometry"]
   response.status(200).json(data).end()
 })
 
