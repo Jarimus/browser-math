@@ -24,11 +24,12 @@ const morganLogging = morgan(':method :url :status :res[content-length] - :respo
 
 // Unknown endpoint
 const unknownEndpoint = (_request, response) => {
-  response.status(404).send(`
-<!DOCTYPE html>
-  <html style="height:75%; margin:0; background:black; color:white; display:flex; justify-content:center; align-items:center;">
-  <h1 style="margin:0;">404 - Unknown endpoint</h1>
-</html>`)
+  response.redirect("/")
+//   response.status(404).send(`
+// <!DOCTYPE html>
+//   <html style="height:75%; margin:0; background:black; color:white; display:flex; justify-content:center; align-items:center;">
+//   <h1 style="margin:0;">404 - Unknown endpoint</h1>
+// </html>`)
 }
 
 
