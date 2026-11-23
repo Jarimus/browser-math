@@ -8,6 +8,9 @@ You can find the site running [here](https://matikkapelit.onrender.com).
 - Basic division tables
 - Building expressions with basic operations from the given numbers and a result.
 - Unit conversions
+- Percent conversions between percentages and decimal numbers
+- Calculating the percentage part of a value
+- Calculating the percentage one value is of another value
 
 ## How to run
 

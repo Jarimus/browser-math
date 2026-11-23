@@ -33,6 +33,30 @@ const userSchema = new mongoose.Schema({
   geometry: {
     type: Number,
     default: 0
+  },
+  scale: {
+    type: Number,
+    default: 0
+  },
+  linearEquations: {
+    type: Number,
+    default: 0
+  },
+  quadraticEquations: {
+    type: Number,
+    default: 0
+  },
+  percentConversions: {
+    type: Number,
+    default: 0
+  },
+  percentValue: {
+    type: Number,
+    default: 0
+  },
+  percentRatio: {
+    type: Number,
+    default: 0
   }
 })
 

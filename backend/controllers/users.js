@@ -17,7 +17,13 @@ usersRouter.post('/', async (request, response) => {
     division: body.division ?? 0,
     expressions: body.expressions ?? 0,
     conversions: body.conversions ?? 0,
-    geometry: body.geometry ?? 0
+    geometry: body.geometry ?? 0,
+    scale: body.scale ?? 0,
+    linearEquations: body.linearEquations ?? 0,
+    quadraticEquations: body.quadraticEquations ?? 0,
+    percentConversions: body.percentConversions ?? 0,
+    percentValue: body.percentValue ?? 0,
+    percentRatio: body.percentRatio ?? 0
   })
 
   const savedUser = await user.save()
@@ -38,6 +44,12 @@ usersRouter.put('/:id', async (request, response) => {
   data["division"] = body.division ?? data["division"]
   data["conversions"] = body.conversions ?? data["conversions"]
   data["geometry"] = body.geometry ?? data["geometry"]
+  data["scale"] = body.scale ?? data["scale"]
+  data["linearEquations"] = body.linearEquations ?? data["linearEquations"]
+  data["quadraticEquations"] = body.quadraticEquations ?? data["quadraticEquations"]
+  data["percentConversions"] = body.percentConversions ?? data["percentConversions"]
+  data["percentValue"] = body.percentValue ?? data["percentValue"]
+  data["percentRatio"] = body.percentRatio ?? data["percentRatio"]
   response.status(200).json(data).end()
 })
 

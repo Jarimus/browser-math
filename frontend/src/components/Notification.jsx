@@ -6,7 +6,12 @@ const Notification = ({ notification, setNotification }) => {
     borderStyle: 'solid',
     borderRadius: 5,
     padding: 10,
-    marginBottom: 10,
+    position: 'fixed',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 1000,
+    pointerEvents: notification.visible ? 'auto' : 'none',
     opacity: notification.visible ? 1 : 0,
     transition: 'opacity 1s ease-in-out'
   }

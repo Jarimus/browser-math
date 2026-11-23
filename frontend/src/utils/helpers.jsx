@@ -121,6 +121,24 @@ export async function highscoreCheck(score, gametype, highscores, setHighscores,
       case "geometry":
         previousScore = userData.geometry ?? -1
         break;
+      case "scale":
+        previousScore = userData.scale ?? -1
+        break;
+      case "linearEquations":
+        previousScore = userData.linearEquations ?? -1
+        break;
+      case "quadraticEquations":
+        previousScore = userData.quadraticEquations ?? -1
+        break;
+      case "percentConversions":
+        previousScore = userData.percentConversions ?? -1
+        break;
+      case "percentValue":
+        previousScore = userData.percentValue ?? -1
+        break;
+      case "percentRatio":
+        previousScore = userData.percentRatio ?? -1
+        break;
       default:
         console.error("Error: unknown game type as input")
         notificationPopUp(setNotification, "Error: unknown game type as input", "red", 5)
@@ -144,6 +162,24 @@ export async function highscoreCheck(score, gametype, highscores, setHighscores,
           break;
         case "geometry":
           userData.geometry = score
+          break;
+        case "scale":
+          userData.scale = score
+          break;
+        case "linearEquations":
+          userData.linearEquations = score
+          break;
+        case "quadraticEquations":
+          userData.quadraticEquations = score
+          break;
+        case "percentConversions":
+          userData.percentConversions = score
+          break;
+        case "percentValue":
+          userData.percentValue = score
+          break;
+        case "percentRatio":
+          userData.percentRatio = score
           break;
         default:
           break;

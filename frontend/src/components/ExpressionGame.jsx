@@ -1,45 +1,46 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import MediaQuery from "react-responsive"
 import { useNavigate } from "react-router-dom"
 import Numpad from "./Numpad"
 import { flashTextColor, generateRandomExpression, highscoreCheck, notificationPopUp, randomInt, safeEval, validateNumbersUsed } from "../utils/helpers"
+
+const createProblem = (score) => {
+  const numbers = []
+  const count = randomInt(3, Math.min(Math.floor(score / 10) + 3, 5))
+  for (let i=0;i<count;i++) {
+    numbers.push(randomInt(2, 9))
+  }
+
+  let problem = { expression: "", result: -1}
+  while (problem.result < 0 || problem.result > score*2 + 20 || !Number.isInteger(problem.result)) {
+    problem = generateRandomExpression(numbers)
+  }
+  return { numbers, target: problem.result }
+}
 
 const ExpressionGame = ({ highscores, setHighscores, setNotification }) => {
 
   const navigate = useNavigate()
   const [score, setScore] = useState(0)
   const [result, setResult] = useState("")
-  const [numbers, setNumbers] = useState([])
-  const [target, setTarget] = useState(0)
+  const [problem, setProblem] = useState(() => createProblem(0))
   const [color, setColor] = useState("grey")
+
+  const { numbers, target } = problem
 
   const flashStyle = {
     color: color,
     transition: "color 0.2s ease-in-out"
   }
 
-  useEffect(() => {
-    newProblem()
-  }, [])
+  const newProblem = () => {
+    setProblem(createProblem(score))
+  }
 
   const info = () => {
     notificationPopUp(setNotification, "Muodosta lauseke, jonka tulos on oltava annettu vastaus. Käytä kutakin annettua lukua kerran.", "black", 10)
   }
 
-  const newProblem = () => {
-    let newNumbers = []
-    const count = randomInt(3, Math.min(Math.floor(score / 10) + 3, 5))
-    for (let i=0;i<count;i++) {
-      newNumbers.push(randomInt(2, 9))
-    }
-    setNumbers(newNumbers)
-
-    let problem = { expression: "", result: -1}
-    while (problem.result < 0 || problem.result > score*2 + 20 || !Number.isInteger(problem.result)) {
-      problem = generateRandomExpression(newNumbers)
-    }
-    setTarget(problem.result)
-  }
 
   const checkCalculation = async () => {
     if (!validateNumbersUsed(result, numbers)) {

@@ -37,6 +37,24 @@ const Highscores = ({ highscores }) => {
     case "geometry":
       highscores.sort( (a,b) => (b.geometry ?? 0) - (a.geometry ?? 0) )
       break;
+    case "scale":
+      highscores.sort( (a,b) => (b.scale ?? 0) - (a.scale ?? 0) )
+      break;
+    case "linearEquations":
+      highscores.sort( (a,b) => (b.linearEquations ?? 0) - (a.linearEquations ?? 0) )
+      break;
+    case "quadraticEquations":
+      highscores.sort( (a,b) => (b.quadraticEquations ?? 0) - (a.quadraticEquations ?? 0) )
+      break;
+    case "percentConversions":
+      highscores.sort( (a,b) => (b.percentConversions ?? 0) - (a.percentConversions ?? 0) )
+      break;
+    case "percentValue":
+      highscores.sort( (a,b) => (b.percentValue ?? 0) - (a.percentValue ?? 0) )
+      break;
+    case "percentRatio":
+      highscores.sort( (a,b) => (b.percentRatio ?? 0) - (a.percentRatio ?? 0) )
+      break;
     default:
       break;
   }
@@ -56,6 +74,12 @@ const Highscores = ({ highscores }) => {
             { gametype == "expressions" && <th style={columnStyle} >Keksi lauseke</th>}
             { gametype == "conversions" && <th style={columnStyle} >Yksikkömuunnokset</th>}
             { gametype == "geometry" && <th style={columnStyle} >Piiri ja pinta-ala</th>}
+            { gametype == "scale" && <th style={columnStyle} >Mittakaava</th>}
+            { gametype == "linearEquations" && <th style={columnStyle} >1. asteen yhtälöt</th>}
+            { gametype == "quadraticEquations" && <th style={columnStyle} >2. asteen yhtälöt</th>}
+            { gametype == "percentConversions" && <th style={columnStyle} >Prosenttimuunnokset</th>}
+            { gametype == "percentValue" && <th style={columnStyle} >Prosenttiarvo</th>}
+            { gametype == "percentRatio" && <th style={columnStyle} >Prosenttiluku</th>}
           </tr>
         </thead>
         <tbody>
@@ -67,6 +91,12 @@ const Highscores = ({ highscores }) => {
               { gametype === "expressions" && <td>{a.expressions ?? 0}</td>}
               { gametype === "conversions" && <td>{a.conversions ?? 0}</td>}
               { gametype === "geometry" && <td>{a.geometry ?? 0}</td>}
+              { gametype === "scale" && <td>{a.scale ?? 0}</td>}
+              { gametype === "linearEquations" && <td>{a.linearEquations ?? 0}</td>}
+              { gametype === "quadraticEquations" && <td>{a.quadraticEquations ?? 0}</td>}
+              { gametype === "percentConversions" && <td>{a.percentConversions ?? 0}</td>}
+              { gametype === "percentValue" && <td>{a.percentValue ?? 0}</td>}
+              { gametype === "percentRatio" && <td>{a.percentRatio ?? 0}</td>}
             </tr>
             )
           )}
@@ -79,6 +109,12 @@ const Highscores = ({ highscores }) => {
         <button className="btn btn-primary m-1" role="button" onClick={() => {setGametype("expressions")}}>Keksi lauseke</button>
         <button className="btn btn-primary m-1" role="button" onClick={() => {setGametype("conversions")}}>Yksikkömuunnokset</button>
         <button className="btn btn-primary m-1" role="button" onClick={() => {setGametype("geometry")}}>Piiri ja pinta-ala</button>
+        <button className="btn btn-primary m-1" role="button" onClick={() => {setGametype("scale")}}>Mittakaava</button>
+        <button className="btn btn-primary m-1" role="button" onClick={() => {setGametype("linearEquations")}}>1. asteen yhtälöt</button>
+        <button className="btn btn-primary m-1" role="button" onClick={() => {setGametype("quadraticEquations")}}>2. asteen yhtälöt</button>
+        <button className="btn btn-primary m-1" role="button" onClick={() => {setGametype("percentConversions")}}>Prosenttimuunnokset</button>
+        <button className="btn btn-primary m-1" role="button" onClick={() => {setGametype("percentValue")}}>Prosenttiarvo</button>
+        <button className="btn btn-primary m-1" role="button" onClick={() => {setGametype("percentRatio")}}>Prosenttiluku</button>
       </p>
 
       <p>
