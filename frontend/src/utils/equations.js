@@ -42,7 +42,7 @@ const generateLinearProblem = () => {
     return {
       equation: `${formatLinearSide(coefficient, constant)} = ${rightSide}`,
       answers: [answer],
-      hint: "Siirrä vakiotermi toiselle puolelle ja jaa x:n kertoimella.",
+      hint: "Siirrä vakiotermi toiselle puolelle ja jaa muuttujan x kertoimella.",
     }
   }
 
@@ -58,7 +58,7 @@ const generateLinearProblem = () => {
   return {
     equation: `${formatLinearSide(coefficient, constant)} = ${formatLinearSide(otherCoefficient, otherConstant)}`,
     answers: [answer],
-    hint: "Siirrä x-termi ja vakiotermi omille puolilleen ja jaa x:n kertoimella.",
+    hint: "Siirrä muuttujatermi ja vakiotermi omille puolilleen ja jaa muuttujan x kertoimella.",
   }
 }
 
@@ -70,7 +70,7 @@ const generateQuadraticProblem = () => {
   return {
     equation: formatQuadratic(firstRoot, secondRoot),
     answers: [firstRoot, secondRoot],
-    hint: "Kirjoita yhtälö muotoon ax² + bx + c = 0 ja ratkaise se esimerkiksi tulon nollasäännöllä.",
+    hint: "Kirjoita yhtälö muotoon ax² + bx + c = 0 ja käytä 2. asteen yhtälön ratkaisukaavaa.",
   }
 }
 
@@ -84,14 +84,14 @@ const generateEasyQuadraticProblem = () => {
     return {
       equation: formatQuadratic(firstRoot, secondRoot),
       answers: [firstRoot, secondRoot],
-      hint: "Yhtälössä ei ole x-termiä. Siirrä vakiotermi toiselle puolelle ja ota neliöjuuri.",
+      hint: "Yhtälössä ei ole 1. asteen termiä. Siirrä vakiotermi toiselle puolelle ja ota neliöjuuri.",
     }
   }
 
   return {
     equation: formatQuadratic(0, nonZeroRoot),
     answers: [0, nonZeroRoot],
-    hint: "Yhtälössä ei ole vakiotermiä. Ota x yhteiseksi tekijäksi ja käytä tulon nollasääntöä.",
+    hint: "Yhtälössä ei ole vakiotermiä. Ota muuttuja x yhteiseksi tekijäksi ja käytä tulon nollasääntöä.",
   }
 }
 
